@@ -15,8 +15,4 @@ const createWallet = (account) => {
     return cardano.wallet(account);
   };
  
-  const wallet = createWallet("wallet5");
-  //const wallet = cardano.wallet("teste4");
-  //console.log(cardano.queryTip(wallet));
-  //console.log(cardano.queryUtxo("addr1vxjx5l4xwm9f04e6mhh0mp88z6u77v9v4r84p7qzx9usv8gn77mz4"));
-  //console.log("A");
+  const wallet = createWallet(process.argv[2]);
