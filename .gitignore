@@ -5,3 +5,4 @@ tx.raw
 protocol.json
 fullUtxo.out
 balance.out
+consult.sh
