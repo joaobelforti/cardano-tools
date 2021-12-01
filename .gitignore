@@ -1,3 +1,7 @@
-bot/botRun.c
 priv
 tmp
+tx.signed
+tx.raw
+protocol.json
+fullUtxo.out
+balance.out
