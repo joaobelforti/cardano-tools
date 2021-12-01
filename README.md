@@ -1,5 +1,4 @@
 # cardano-tools
-<<<<<<< HEAD
 
 ## Credits to <a href="https://github.com/Berry-Pool/">Alessandro</a>, the creator of cardanocli-js.
 
