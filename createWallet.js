@@ -15,4 +15,4 @@ const createWallet = (account) => {
     return cardano.wallet(account);
   };
  
-  const wallet = createWallet(process.argv[2]);
+const wallet = createWallet(process.argv[2]);

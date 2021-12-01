@@ -34,7 +34,6 @@ int main (int argc, char *argv[]) {
         strcat(input,inputs);
         system(input);
     }
-    
 }
 
 //gcc botRun.c -o botRun -fopenmp

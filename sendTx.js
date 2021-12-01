@@ -25,7 +25,7 @@ const txInfo = {
     address: receiver,
     value: {
         lovelace: cardano.toLovelace(value),
-        // send NFT "ad9c09fa0a62ee42fb9555ef7d7d58e782fa74687a23b62caf3a8025.BerrySpaceGreen": 1
+        //send NFT "ad9c09fa0a62ee42fb9555ef7d7d58e782fa74687a23b62caf3a8025.BerrySpaceGreen": 1
       },
     },
   ],
