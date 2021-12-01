@@ -51,4 +51,3 @@ const txSigned = cardano.transactionSign({
 const txHash = cardano.transactionSubmit(txSigned);
 
 console.log(txHash);
-
