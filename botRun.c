@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+void clear (void)
+    {    
+        while ( getchar() != 'n' );
+    }
 
 int main (int argc, char *argv[]) {
     
@@ -33,8 +37,10 @@ int main (int argc, char *argv[]) {
         
         strcat(input,inputs);
         system(input);
+        clear();
     }
+    return 0;
 }
 
-//gcc botRun.c -o botRun -fopenmp
-// ./botRun nThreads txValue addr1zzzzzzz
+//  gcc botRun.c -o botRun -fopenmp
+//  ./botRun nThreads txValue addr1zzzzzzz
