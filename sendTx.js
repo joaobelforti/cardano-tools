@@ -9,7 +9,6 @@ const cardano = new CardanocliJs({ shelleyGenesisPath , socketPath});
 const wallet = ["wallet".concat(process.argv[2].toString())];
 const value = process.argv[3]
 const receiver = process.argv[4]
-
 const sender = cardano.wallet(wallet);
 
 const txInfo = {
@@ -18,7 +17,7 @@ const txInfo = {
   {
     address: sender.paymentAddr,
     value: {
-      lovelace: sender.balance().value.lovelace - cardano.toLovelace(value),
+        lovelace: sender.balance().value.lovelace - cardano.toLovelace(value),
       },
     },
   {

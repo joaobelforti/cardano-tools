@@ -10,18 +10,17 @@ const receiver = process.argv[3];
 
 let fee=0;
 
-//const wallet = ["wallet".concat(i.toString())];
 const wallet = [process.argv[2]];
 const sender = cardano.wallet(wallet);
 
 const txInfo = {
     txIn: cardano.queryUtxo(sender.paymentAddr),
     txOut: [
-{
-    address: receiver,
-      value: {
+	{
+	address: receiver,
+      	value: {
         lovelace: sender.balance().value.lovelace-fee,
-         // send NFT "ad9c09fa0a62ee42fb9555ef7d7d58e782fa74687a23b62caf3a8025.BerrySpaceGreen": 1
+         //send NFT "ad9c09fa0a62ee42fb9555ef7d7d58e782fa74687a23b62caf3a8025.BerrySpaceGreen": 1
       },
     },
   ],
