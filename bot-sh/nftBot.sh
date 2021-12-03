@@ -25,7 +25,7 @@ i=0
 zero=0
 subtract=0
 while read -r utxo; do
-                    in_addr=$(awk '{ print $1 }' <<< "${utxo}")
+    in_addr=$(awk '{ print $1 }' <<< "${utxo}")
     idx=$(awk '{ print $2 }' <<< "${utxo}")
     ada=$(awk '{ print $3 }' <<< "${utxo}")
     utxo_balance=$(awk '{ print $3 }' <<< "${utxo}")
