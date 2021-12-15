@@ -6,3 +6,4 @@ protocol.json
 fullUtxo.out
 balance.out
 consult.sh
+bot-sh

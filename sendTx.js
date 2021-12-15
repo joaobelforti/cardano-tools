@@ -1,10 +1,10 @@
 const CardanocliJs = require("cardanocli-js");
 
-const shelleyGenesisPath = "../cardano-src/cardano-node/mainnet-shelley-genesis.json";
+const shelleyGenesisPath = "../cardano-node/mainnet-shelley-genesis.json";
 
-const socketPath = "../cardano-src/cardano-node/path/to/db/node.socket";
+const socketPath = "../cardano-node/path/to/db/node.socket";
 
-const cardano = new CardanocliJs({ shelleyGenesisPath , socketPath});
+const cardano = new CardanocliJs({ shelleyGenesisPath,socketPath });
 
 const wallet = ["wallet".concat(process.argv[2].toString())];
 const value = process.argv[3]
@@ -24,7 +24,7 @@ const txInfo = {
     address: receiver,
     value: {
         lovelace: cardano.toLovelace(value),
-        //send NFT "ad9c09fa0a62ee42fb9555ef7d7d58e782fa74687a23b62caf3a8025.BerrySpaceGreen": 1
+        //"ad9c09fa0a62ee42fb9555ef7d7d58e782fa74687a23b62caf3a8025.BerrySpaceGreen": 1
       },
     },
   ],
