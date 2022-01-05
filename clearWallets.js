@@ -8,14 +8,15 @@ const socketPath = "../cardano-node/path/to/db/node.socket";
 
 const cardano = new CardanocliJs({ shelleyGenesisPath , socketPath});
 
-const addr = "addr1q8c3fk3hwqsras54gggv99gd84yqsvw66x76trn2k22g6rlnt267zvmmkhtpt3kala3ewnehhvtf2t4kgd98gpqcrxzqcupqml"
+const addr = "addr1q86qv8qqk2ddghs5tpzsxm8zfv6xmah2g4krf3u52vcr7wlnt267zvmmkhtpt3kala3ewnehhvtf2t4kgd98gpqcrxzqxjklse"
 
 for(let n = 0;n < process.argv[2]; n++){
 
     const dir = ["wallet".concat((n+1).toString())];
+    const wallet = cardano.wallet(dir);
 
-	const wallet = cardano.wallet(dir);
-
-    console.log(exec(`node sendAll.js ${dir} ${addr}`))
+    if(cardano.queryUtxo(wallet.paymentAddr).length!=0){
+        console.log(exec(`node sendAll.js ${dir} ${addr}`))
+    }
 
 }

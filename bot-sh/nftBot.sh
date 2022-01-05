@@ -1,5 +1,5 @@
 #!/bin/bash
-export CARDANO_NODE_SOCKET_PATH=../../cardano-src/cardano-node/path/to/db/node.socket
+export CARDANO_NODE_SOCKET_PATH=../../cardano-node/path/to/db/node.socket
 amountToSend=$(($2*1000000))
 walletDir=../priv/wallet/wallet${1}
 walletPayment=${walletDir}/wallet${1}.payment.addr
@@ -7,7 +7,7 @@ walletSkey=${walletDir}/wallet${1}.payment.skey
 destinationAddress=$3
 
 cardano-cli query protocol-parameters \
-    -mainnet \
+    --mainnet \
     --out-file protocol.json
 
 

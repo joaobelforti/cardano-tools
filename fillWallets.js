@@ -20,7 +20,7 @@ const txInfo = {
     },
   ],
 };
-//console.log(txInfo.txOut[0])
+
 for (var n = 1; n < process.argv[2]; n++) {
 
     var dir = ["wallet".concat((n + 1).toString())];
@@ -34,7 +34,6 @@ for (var n = 1; n < process.argv[2]; n++) {
     }
     txInfo.txOut.push(newAddr)
 }
-//console.log(txInfo.txOut[0])
 
 const raw = cardano.transactionBuildRaw(txInfo);
 
