@@ -8,10 +8,10 @@ const socketPath = "../cardano-node/path/to/db/node.socket";
 
 const cardano = new CardanocliJs({ shelleyGenesisPath , socketPath});
 
-const addr = "addr1q86qv8qqk2ddghs5tpzsxm8zfv6xmah2g4krf3u52vcr7wlnt267zvmmkhtpt3kala3ewnehhvtf2t4kgd98gpqcrxzqxjklse"
+const addr = "addr1qx5cg3ntg6s3fn2vnea5gq2cs8xgpch0rsjqkhu90mch66lnt267zvmmkhtpt3kala3ewnehhvtf2t4kgd98gpqcrxzqerupv2"
 
 for(let n = 0;n < process.argv[2]; n++){
-
+ 
     const dir = ["wallet".concat((n+1).toString())];
     const wallet = cardano.wallet(dir);
 

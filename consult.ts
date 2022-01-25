@@ -22,7 +22,7 @@ async function loop(){
     for (var n = 0; n < process.argv[2]; n++) {
         var dir = ["wallet".concat((n + 1).toString())];
         var wallet = cardano.wallet(dir);
-        //console.log("wallet", n + 1, " -> ", wallet.balance().value, "ADA");
+        console.log("wallet", n + 1);
         var utxos= await Promise.all([asyncUtxos(wallet.paymentAddr)])
         console.log(utxos, "\n");
     }

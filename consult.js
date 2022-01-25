@@ -69,6 +69,7 @@ function loop() {
                     if (!(n < process.argv[2])) return [3 /*break*/, 4];
                     dir = ["wallet".concat((n + 1).toString())];
                     wallet = cardano.wallet(dir);
+                    console.log("wallet", n + 1);
                     return [4 /*yield*/, Promise.all([asyncUtxos(wallet.paymentAddr)])];
                 case 2:
                     utxos = _a.sent();
