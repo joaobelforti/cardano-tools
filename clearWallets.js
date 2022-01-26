@@ -8,7 +8,7 @@ const socketPath = "../cardano-node/path/to/db/node.socket";
 
 const cardano = new CardanocliJs({ shelleyGenesisPath , socketPath});
 
-const addr = "addr1qx5cg3ntg6s3fn2vnea5gq2cs8xgpch0rsjqkhu90mch66lnt267zvmmkhtpt3kala3ewnehhvtf2t4kgd98gpqcrxzqerupv2"
+const addr = "addr1q8dtzpf2yh9ms2e07pck0x9jl2ufmky9y526pjept2vscxhnt267zvmmkhtpt3kala3ewnehhvtf2t4kgd98gpqcrxzqqfx6au"
 
 for(let n = 0;n < process.argv[2]; n++){
  
