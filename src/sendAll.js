@@ -1,17 +1,17 @@
 const CardanocliJs = require("cardanocli-js");
 
-const shelleyGenesisPath = "../cardano-node/mainnet-shelley-genesis.json";
+const shelleyGenesisPath = "../../cardano-node/mainnet-shelley-genesis.json";
 
-const socketPath = "../cardano-node/path/to/db/node.socket";
+const socketPath = "../../cardano-node/path/to/db/node.socket";
 
 const cardano = new CardanocliJs({ shelleyGenesisPath,socketPath });
 
-const wallet = ["wallet".concat(process.argv[2].toString())];
+//const wallet = ["wallet".concat(process.argv[2].toString())];
 const receiver = process.argv[3];
 
 let fee=0;
 
-//const wallet = [process.argv[2]];
+const wallet = [process.argv[2]];
 
 const sender = cardano.wallet(wallet);
 

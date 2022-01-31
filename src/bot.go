@@ -24,38 +24,56 @@ func main() {
     totalValues := make([]string, size)
     dir:="priv/wallet/"
 
-    //cache txs in before sending starts and stores it at an array
-    fmt.Println("loadig txs...")
+    //load txs in before sending starts and stores it at an array
+    fmt.Println("Loading...")
+    wg.Add(size)
     for i := 0; i < size; i++ {
-        //wallets config
-        wallet:="wallet"+strconv.Itoa(i+1)
-        walletDir:=dir+wallet
-        walletPaymentAddress:=walletDir+"/"+wallet+".payment.addr"
-        walletAddressAux,_:=exec.Command("cat",walletPaymentAddress).Output()
-        walletAddress := string(walletAddressAux[:])
+        go func(i int) {
+            totalValue:=0
+            //wallets config
+            wallet:="wallet"+strconv.Itoa(i+1)
+            walletDir:=dir+wallet
+            walletPaymentAddress:=walletDir+"/"+wallet+".payment.addr"
+            walletAddressAux,_:=exec.Command("cat",walletPaymentAddress).Output()
+            walletAddress := string(walletAddressAux[:])
 
-        //tx_in
-        cmd,_ := exec.Command("cardano-cli","query","utxo",
-        "--address",walletAddress,
-        "--mainnet").Output()
-        output := string(cmd[:])
-        a := regexp.MustCompile("[^\\s]+")
-        array:=a.FindAllString(output,-1)
-        txsIn[i]=array[4]+"#"+array[5]
-        totalValues[i]=array[6]
+            //search on cardano blockchain each address transcations
+            cmd,_ := exec.Command("cardano-cli","query","utxo",
+            "--address",walletAddress,
+            "--mainnet").Output()
+            output := string(cmd[:])
+            a := regexp.MustCompile("[^\\s]+")
+            array:=a.FindAllString(output,-1)
+
+            //it selects the tx with higher ada volume as a tx-in.
+            for x := 0; x < len(array); x++ {
+                if(array[x]=="lovelace"){
+                    lovelace,_:=strconv.Atoi(array[x-1])
+                    if(totalValue < lovelace){
+                        txsIn[i]=array[x-3]+"#"+array[x-2]
+                        totalValues[i]=array[x-1]
+                        totalValue,_=strconv.Atoi(array[x-1])
+                    }
+                }   
+            }
+        defer wg.Done()
+        }(i)
     }
+    wg.Wait()
+
+    //reveice minting address to spam transactions.
+    fmt.Println("All txs are loaded - ready to START.")
+    fmt.Println("Transactions to be sent:",size)
+    fmt.Println("Amount to send:",amountToSend/1000000)
+    reader := bufio.NewReader(os.Stdin)
+    fmt.Print("To address: ")
+    destinationAddress, _ := reader.ReadString('\n')
 
     //get protocol.json, file required for this operation
     protocol := exec.Command("cardano-cli","query","protocol-parameters","--mainnet","--out-file","protocol.json")
     protocol.Run()
-    
-    //reveice minting address to spam transactions.
-    fmt.Println("All txs loaded - ready to START.")
-    reader := bufio.NewReader(os.Stdin)
-    fmt.Print("Address: ")
-    destinationAddress, _ := reader.ReadString('\n')
 
-    //calculating slot, it determines transactions time to live
+    //calculating slot
     slotCmd,_ := exec.Command("cardano-cli","query","tip",
     "--mainnet").Output()
     output := string(slotCmd[:])
@@ -63,7 +81,7 @@ func main() {
     array:=a.FindAllString(output,-1)
     slotAux1:=strings.Trim(array[6],",")
     slot,_:=strconv.Atoi(slotAux1)
-    slot=slot+10000 
+    slot=slot+10000
 
     //start a timer for counting how many transaction will be sent.
     start := time.Now()
@@ -76,7 +94,7 @@ func main() {
             tx_in:=txsIn[i]
             totalValue:=totalValues[i]
 
-            //files
+            //creating name files
             tx_tmp:="tx"+strconv.Itoa(i+1)+".tmp"
             tx_raw:="tx"+strconv.Itoa(i+1)+".raw"
             tx_signed:="tx"+strconv.Itoa(i+1)+".signed"

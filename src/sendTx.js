@@ -1,8 +1,8 @@
 const CardanocliJs = require("cardanocli-js");
 
-const shelleyGenesisPath = "../cardano-node/mainnet-shelley-genesis.json";
+const shelleyGenesisPath = "../../cardano-node/mainnet-shelley-genesis.json";
 
-const socketPath = "../cardano-node/path/to/db/node.socket";
+const socketPath = "../../cardano-node/path/to/db/node.socket";
 
 const cardano = new CardanocliJs({ shelleyGenesisPath,socketPath });
 
@@ -24,7 +24,10 @@ const txInfo = {
     address: receiver,
     value: {
         lovelace: cardano.toLovelace(value),
-        //"ad9c09fa0a62ee42fb9555ef7d7d58e782fa74687a23b62caf3a8025.BerrySpaceGreen": 1
+        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.adapeSalvadorKing":1,
+        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.adapeTannerWhite":1,
+        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.adapeCharlemagneMaddock":1,
+        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.adapeRansleydelaCruz":1
       },
     },
   ],
