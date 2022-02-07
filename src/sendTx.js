@@ -24,15 +24,12 @@ const txInfo = {
     address: receiver,
     value: {
         lovelace: cardano.toLovelace(value),
-        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.adapeSalvadorKing":1,
-        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.adapeTannerWhite":1,
-        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.adapeCharlemagneMaddock":1,
-        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.adapeRansleydelaCruz":1
+        "dac355946b4317530d9ec0cb142c63a4b624610786c2a32137d78e25.6164617065416c6672656447617263c3ad61":1
       },
     },
   ],
 };
-
+console.log(txInfo)
 const raw = cardano.transactionBuildRaw(txInfo);
 
 const fee = cardano.transactionCalculateMinFee({

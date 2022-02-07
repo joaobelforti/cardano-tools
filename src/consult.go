@@ -8,7 +8,6 @@ import (
     "strconv"
     "os/exec"
     "time"
-    "strings"
     "regexp"
 )
 
@@ -47,20 +46,25 @@ func main() {
 
             //cleaning data for printing
             for x := 4; x <= len(array)-1; x++{
-                verify:=strings.Index(array[x],".")
+                //verify:=strings.Index(array[x],".")
                 if array[x]!="+"{
                     if array[x]=="lovelace"{
                         adaAux,_:=strconv.Atoi(array[x-1])
                         ada=adaAux+ada
                     }
-                    if array[x]=="TxOutDatumNone"{
-                        txs =txs+"\n"
-                    }
-                    if array[x]!="lovelace" && array[x]!="TxOutDatumNone" && array[x+1]!="lovelace" && array[x+2]!="lovelace"&& array[x-1]!="+"&& verify==-1{
-                        txs = array[x]+" "+txs
+                    if array[x]=="lovelace"{
+                        txs = array[x-3]+" "+txs
+                        //fmt.Println(array[x])
                     }
                     if(array[x-1]=="+" && array[x]!="TxOutDatumNone"){
-                        assets=array[x+1]+" "+assets
+                        for {
+                            if(array[x+1]!= "TxOutDatumNone"){
+                                assets=assets+" "+array[x]
+                            }else{
+                                break
+                            }
+                            x=x+1
+                        }
                     }
                 }
             }

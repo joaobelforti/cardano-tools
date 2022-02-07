@@ -19,7 +19,7 @@ func main() {
     errorCount:=0
     size, _ := strconv.Atoi(os.Args[1])
     amountToSend,_:=strconv.Atoi(os.Args[2])
-    amountToSend=amountToSend*1000000
+    amountToSend=amountToSend*1000000 
     txsIn := make([]string, size)
     totalValues := make([]string, size)
     dir:="priv/wallet/"
@@ -34,16 +34,22 @@ func main() {
             wallet:="wallet"+strconv.Itoa(i+1)
             walletDir:=dir+wallet
             walletPaymentAddress:=walletDir+"/"+wallet+".payment.addr"
-            walletAddressAux,_:=exec.Command("cat",walletPaymentAddress).Output()
+            walletAddressAux,_:=exec.Command("cat",walletPaymentAddress).Output()   
             walletAddress := string(walletAddressAux[:])
 
             //search on cardano blockchain each address transcations
             cmd,_ := exec.Command("cardano-cli","query","utxo",
             "--address",walletAddress,
             "--mainnet").Output()
+            //output takes return of cmd variable and turns into a string.
             output := string(cmd[:])
+            //turn string into array splitting all empty spaces.
             a := regexp.MustCompile("[^\\s]+")
             array:=a.FindAllString(output,-1)
+            //return an error if some wallet is not filled
+            if(len(array)==4){
+                log.Fatalf("\nERROR! WALLET NOT FILLED.")
+            }
 
             //it selects the tx with higher ada volume as a tx-in.
             for x := 0; x < len(array); x++ {
@@ -69,6 +75,9 @@ func main() {
     fmt.Print("To address: ")
     destinationAddress, _ := reader.ReadString('\n')
 
+    //start a timer until program finish.
+    start := time.Now()
+
     //get protocol.json, file required for this operation
     protocol := exec.Command("cardano-cli","query","protocol-parameters","--mainnet","--out-file","protocol.json")
     protocol.Run()
@@ -82,9 +91,6 @@ func main() {
     slotAux1:=strings.Trim(array[6],",")
     slot,_:=strconv.Atoi(slotAux1)
     slot=slot+10000
-
-    //start a timer for counting how many transaction will be sent.
-    start := time.Now()
 
     //initialize multithread sending
     wg.Add(size)
@@ -136,7 +142,7 @@ func main() {
             feeInt,_:=strconv.Atoi(fee)
             txOut:=totalValueInt-feeInt-amountToSend
  
-            //build raw 2
+            //buildRaw 2
             walletAddressRaw2:=walletAddress+"+"+strconv.Itoa(txOut)//concat sender address + txout
             destinationAddressRaw2:=destinationAddress+"+"+strconv.Itoa(amountToSend)//concat receiver address + amountToSend
             buildRawFinal := exec.Command("cardano-cli","transaction","build-raw",

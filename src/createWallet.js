@@ -1,8 +1,8 @@
 const CardanocliJs = require("cardanocli-js");
 
-const shelleyGenesisPath = "../cardano-node/mainnet-shelley-genesis.json";
+const shelleyGenesisPath = "../../cardano-node/mainnet-shelley-genesis.json";
 
-const socketPath = "../cardano-node/path/to/db/node.socket";
+const socketPath = "../../cardano-node/path/to/db/node.socket";
 
 const cardano = new CardanocliJs({ shelleyGenesisPath,socketPath });
 
